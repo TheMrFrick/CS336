@@ -8,7 +8,25 @@
 </head>
 <body>
 	<%@ page import="java.sql.*"%>
+	<jsp:useBean id = "obj" class = "com.cs336.pkg.User"/>
+	
+	<jsp:setProperty property="*" name="obj"/>
 	<%
+		boolean result = ApplicationDB.log(obj);
+	
+		if(result){
+			out.println("Success");
+			session.setAttribute("user", obj.getUsername()); // the username will be stored in the session
+			out.println("welcome " + obj.getUsername());
+			out.println("<a href='logout.jsp'>Log out</a>");
+			response.sendRedirect("success.jsp");
+			
+		} else{
+			out.println("Failure");
+			out.println("Invalid password <a href='login.jsp'>try again</a>");
+			
+		}
+	
 // 		String userid = request.getParameter("username");
 // 		String pwd = request.getParameter("password");
 // 		ApplicationDB db = new ApplicationDB();
