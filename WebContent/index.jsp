@@ -11,7 +11,7 @@
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	<!-- Build the rest of the landing page -->
 	<div class="container">
-		<h1 style="text-align: center">Welcome to the landing page!</h1>
+		<h1 style="text-align: center">Welcome to the Betting Arena!</h1>
 	</div>
 </body>
 </html>
