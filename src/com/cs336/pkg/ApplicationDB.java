@@ -91,5 +91,56 @@ public class ApplicationDB {
 	
 		return result;
 	}
+	
+	public static boolean createItem(Item item) {
+		ApplicationDB dao = new ApplicationDB();
+		boolean result = false;
+		
+		Connection connection = dao.getConnection();
+		
+		try {
+			PreparedStatement mainPS = connection.prepareStatement("INSERT INTO Items(genderMake, color, brand, material) VALUES (?, ?, ?, ?)");
+			
+			mainPS.setString(1, item.getGender());
+			mainPS.setString(2, item.getColor());
+			mainPS.setString(3, item.getBrand());
+			mainPS.setString(4, item.getMaterial());
+			
+			System.out.println(mainPS);
+			
+			PreparedStatement subPS = null; 
+			
+			if(item.getType().equalsIgnoreCase("top")){
+				subPS = connection.prepareStatement("INSERT INTO Item_Tops(topSize,topStyle) VALUES (?,?)");
+			}
+			if(item.getType().equalsIgnoreCase("bottom")){
+				subPS = connection.prepareStatement("INSERT INTO Item_Bottoms(bottomSize, bottomStyle) VALUES (?,?)");
+			}
+			if(item.getType().equalsIgnoreCase("shoe")){
+				subPS = connection.prepareStatement("INSERT INTO Item_Shoes(shoeSize, shoeStyle) VALUES (?,?)");
+			}
+			
+			subPS.setString(1, item.getSize());
+			subPS.setString(2, item.getStyle());
+			
+			System.out.println(subPS);
+			
+			int x = mainPS.executeUpdate();
+			int y = subPS.executeUpdate();
+			
+			if(x != 0 && y != 0) {
+				result = true;
+			}
+			System.out.println(x+" "+y);
+			dao.closeConnection(connection);
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
 
 }

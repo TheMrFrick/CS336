@@ -19,10 +19,10 @@
 			<fieldset>
 				<legend>Basic Information:</legend>
 				<label for="gender">Gender Make: </label> <br> <input
-					type="radio" name="gender" value="male" checked> Male <br />
-				<input type="radio" name="gender" value="female"> Female <br>
-				<input type="radio" name="gender" value="other"> Other <br>
-				<label for="color">Password:</label> <br> <input type="text"
+					type="radio" name="gender" value="M" checked> Male <br />
+				<input type="radio" name="gender" value="F"> Female <br>
+				<input type="radio" name="gender" value="OTHER"> Other <br>
+				<label for="color">Color:</label> <br> <input type="text"
 					name="color" placeholder="Brown" /> <br /> <label for="brand">Brand:</label><br>
 				<input type="text" name="brand" placeholder="Gucci" /> <br> <label
 					for="material">Material:</label><br> <input type="text"
@@ -31,7 +31,7 @@
 			<fieldset>
 				<legend>Specific Item Information:</legend>
 				<label for="type">Type of Clothing</label> <br>
-				<input type="radio" name="type" value="bottom"> Bottom <br>
+				<input type="radio" name="type" value="bottom" checked> Bottom <br>
 				<input type="radio" name="type" value="shoe"> Shoe <br>
 				<input type="radio" name="type" value="top"> Top <br>
 				<label for="size">Size:</label><br>
