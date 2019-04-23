@@ -8,5 +8,8 @@
 	<li style="float:right"><a href="newUser.jsp">Sign Up</a></li>
 	<li style="float:right"><a href="login.jsp">Login</a></li>
 	<li style="float:right"><a href="search.jsp">Search</a>
+	<li style="float:right"><a href="addItem.jsp">add Item</a>
+	<li style="float:right"><a href="createAuction.jsp">create Auction</a>
+	
 	<!-- 		<li><a href="about.asp">About</a></li> -->
 </ul>

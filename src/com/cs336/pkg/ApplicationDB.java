@@ -91,19 +91,20 @@ public class ApplicationDB {
 		return result;
 	}
 	
-	public static boolean createItem(Item item) {
+	public static boolean createItem(Item item, String user) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
 		
 		Connection connection = dao.getConnection();
 		
 		try {
-			PreparedStatement mainPS = connection.prepareStatement("INSERT INTO Items(genderMake, color, brand, material) VALUES (?, ?, ?, ?)");
+			PreparedStatement mainPS = connection.prepareStatement("INSERT INTO Items(genderMake, color, brand, material, owner) VALUES (?, ?, ?, ?, ?)");
 			
 			mainPS.setString(1, item.getGender());
 			mainPS.setString(2, item.getColor());
 			mainPS.setString(3, item.getBrand());
 			mainPS.setString(4, item.getMaterial());
+			mainPS.setString(5, user);
 			
 			
 			PreparedStatement subPS = null; 
@@ -122,8 +123,8 @@ public class ApplicationDB {
 			subPS.setString(2, item.getStyle());
 			
 			
-			int x = mainPS.executeUpdate();
 			int y = subPS.executeUpdate();
+			int x = mainPS.executeUpdate();
 			
 			if(x != 0 && y != 0) {
 				result = true;
@@ -184,26 +185,39 @@ public class ApplicationDB {
 		
 	}
 	
-	/*public static ResultSet populateAdmin(){
+	 public static boolean createAuction(Auction auction, int item, String seller) {
 		ApplicationDB dao = new ApplicationDB();
+		boolean result = false;
 		
 		Connection connection = dao.getConnection();
 		
-		ResultSet rs = null;
+		int x = 0;
 		
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE NOT username = 'admin'");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO Auctions(itemID, minPrice, initPrice, bidIncr, seller) VALUES(?, ?, ?, ?, ?)");
 			
-			rs = ps.executeQuery();
+			ps.setInt(1, item);
+			ps.setDouble(2, auction.getMinPrice());
+			ps.setDouble(3, auction.getInitPrice());
+			ps.setDouble(4, auction.getBidIncr());
+			ps.setString(5, seller);
+			
+			x = ps.executeUpdate();
+			if(x != 0) {
+				result = true;
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		dao.closeConnection(connection);
-		return rs;
 		
-	} */
+		
+		return result;
+		
+		
+	}
 	
 
 }

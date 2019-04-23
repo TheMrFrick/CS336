@@ -13,7 +13,10 @@
 	<jsp:setProperty property="*" name="obj"/>
 	
 	<% 
-		boolean result = ApplicationDB.createItem(obj);
+		String owner = (String)session.getAttribute("user");
+		
+		boolean result = ApplicationDB.createItem(obj, owner);
+		
 
 		if(result){
 			out.println("Item successfully added");
