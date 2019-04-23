@@ -68,6 +68,10 @@
 				<br>
 				<input type="number" name="bidIncr" value="bidIncr" placeholder=".2"><br>
 				
+				<label for="timeStamp">When will the Auction End?</label>
+				<br>
+				<input type="date" name="date" value="date"><br>
+				<input type="time" name="time" value="time"><br>
 			</fieldset>
 			<input type="submit" value="Submit" />
 

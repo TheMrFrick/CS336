@@ -50,8 +50,10 @@
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				%>
-				 	<tr><th><%=rs.getString("username") %></th><tr>
-				 	<tr><th><%=rs.getString("pass") %></th><tr>
+				 	<tr>
+				 		<td><%=rs.getString("username") %></td>
+				 		<td><%=rs.getString("pass") %></td>
+				 	<tr>
 				<% 
 			}
 			rs.close();
