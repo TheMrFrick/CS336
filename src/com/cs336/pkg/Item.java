@@ -1,5 +1,6 @@
 package com.cs336.pkg;
 
+
 public class Item {
 	private String gender, color, material, brand, type, size, style;
 	
@@ -11,7 +12,7 @@ public class Item {
 	
 	public String getColor() {
 		return this.color;
-	}
+	} 
 	
 	public String getMaterial() {
 		return this.material;
