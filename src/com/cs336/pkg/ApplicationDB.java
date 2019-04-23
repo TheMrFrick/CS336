@@ -184,5 +184,26 @@ public class ApplicationDB {
 		
 	}
 	
+	/*public static ResultSet populateAdmin(){
+		ApplicationDB dao = new ApplicationDB();
+		
+		Connection connection = dao.getConnection();
+		
+		ResultSet rs = null;
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE NOT username = 'admin'");
+			
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dao.closeConnection(connection);
+		return rs;
+		
+	} */
+	
 
 }

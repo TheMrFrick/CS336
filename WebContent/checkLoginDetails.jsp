@@ -12,32 +12,35 @@
 
 	<jsp:setProperty property="*" name="obj" />
 	<%
+		String dest= "";
 		if(obj.getUsername().equalsIgnoreCase("admin") && obj.getPassword().equalsIgnoreCase("adminpass")){
 			session.setAttribute("user", "admin");
-			response.sendRedirect("admin.jsp");
+			
+			dest = "admin.jsp";
 		} else if(obj.getUsername().equalsIgnoreCase("admin")){
 			out.println("Cannot use username admin, please try again");
-			response.sendRedirect("login.jsp");
+			dest = "login.jsp";
 		}
 		
 		boolean result = ApplicationDB.log(obj);
 
-		if (result) {
+		if (result && !obj.getUsername().equalsIgnoreCase("admin")) {
 			out.println("Success");
+			dest = "index.jsp";
 			session.setAttribute("user", obj.getUsername());
 			out.println("welcome " + obj.getUsername());
 			
 			
 			out.println("<a href='logout.jsp'>Log out</a>");
 			
-			response.sendRedirect("index.jsp");
+			//response.sendRedirect("index.jsp");
 
 		} else {
 			out.println("Failure");
 			out.println("Invalid password <a href='login.jsp'>try again</a>");
 
 		}
-
+		response.sendRedirect(dest);
 	%>
 </body>
 </html>
