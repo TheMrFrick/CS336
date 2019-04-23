@@ -8,9 +8,6 @@
 <%@include file="parts/header.jsp"%>
 </head>
 <body>
-	<!-- Get the user's login information to see if they are logged in. -->
-	<!--     This could be just a quick thing to see -->
-	<!--     It would connect to checkLoginDetails -->
 
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	<div class="container">

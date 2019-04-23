@@ -8,26 +8,32 @@
 </head>
 <body>
 	<%@ page import="java.sql.*" %>
+	<jsp:useBean id = "obj" class = "com.cs336.pkg.User"/>
+	
+	<jsp:setProperty property="*" name="obj"/>
+	
 	<%
-// 		String userid = request.getParameter("username");
-// 		String pwd = request.getParameter("password");
-// 		String userType = "";
-// 		if(request.getParameter("userType") != null){
-// 			if(request.getParameter("userType").equals("Basic")){
-// 				userType = "Basic";
-// 			}
-// 			if(request.getParameter("userType").equals("Representative")){
-// 				userType = "Representative";
-// 			}
-// 		}
-// 		ApplicationDB db = new ApplicationDB();
-// 		Connection con = db.getConnection();
-// 		Statement st = con.createStatement();
-// 		String strUpdate = "insert into user(username, pass, usertype) values ('" + userid + "', '" + pwd +"','" + userType + "')";
-// 		out.println("Data is successfully inserted");
-// 		int rows = st.executeUpdate(strUpdate);
-// 		response.sendRedirect("login.jsp");
-// 		db.closeConnection(con); 
+		boolean result = ApplicationDB.createUser(obj);
+		request.getParameter("type");
+	
+	if(result){
+		out.println("User successfully created. To sign in, proceed to the ");
+		
+		%>
+		<a href='login.jsp'> login page.</a>
+		
+		<% 
+		
+	} else{
+		out.println("Failure: Improper input");
+		%>
+		
+		<a href='newUser.jsp'>Try Again.</a>
+		
+		<%
+	}
+
+	
 	%>
 </body>
 </html>

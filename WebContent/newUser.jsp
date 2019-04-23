@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@include file="parts/meta.jsp"%>
-<title>Insert title here</title>
+<title>Create New User</title>
 <%@include file="parts/header.jsp"%>
 </head>
 <body>
@@ -19,8 +19,8 @@
 				name="password" /> <br>
 			<div>
 				<label for="type">Type:</label><br> <input type="radio"
-					name="userType" value="Basic"> Basic User <br> <input
-					type="radio" name="userType" value="Representative"> Customer
+					name="type" value="Basic" checked> Basic User <br> <input
+					type="radio" name="type" value="Representative"> Customer
 				Representative <br>
 			</div>
 			<input type="submit" value="Create User">

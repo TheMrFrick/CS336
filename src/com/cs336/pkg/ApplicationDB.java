@@ -79,7 +79,6 @@ public class ApplicationDB {
 			
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
-			System.out.println(ps);
 			
 			ResultSet rs = ps.executeQuery();
 			result = rs.next();
@@ -106,7 +105,6 @@ public class ApplicationDB {
 			mainPS.setString(3, item.getBrand());
 			mainPS.setString(4, item.getMaterial());
 			
-			System.out.println(mainPS);
 			
 			PreparedStatement subPS = null; 
 			
@@ -123,7 +121,6 @@ public class ApplicationDB {
 			subPS.setString(1, item.getSize());
 			subPS.setString(2, item.getStyle());
 			
-			System.out.println(subPS);
 			
 			int x = mainPS.executeUpdate();
 			int y = subPS.executeUpdate();
@@ -131,13 +128,58 @@ public class ApplicationDB {
 			if(x != 0 && y != 0) {
 				result = true;
 			}
-			System.out.println(x+" "+y);
 			dao.closeConnection(connection);
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		return result;
+		
+	}
+	
+	public static boolean createUser(User user) {
+		ApplicationDB dao = new ApplicationDB();
+		boolean result = false;
+		
+		Connection connection = dao.getConnection();
+		
+		
+		try {
+			 //insert for the generic user instance
+			 PreparedStatement ps = connection.prepareStatement("INSERT INTO Users(username,pass) VALUES (?,?)");
+			 
+			 ps.setString(1, user.getUsername());
+			 ps.setString(2, user.getPassword());
+
+			 int x = 0, y = 0;
+			 PreparedStatement subPS = null;
+			 
+			if(user.getType().equalsIgnoreCase("Basic")) {
+				 subPS = connection.prepareStatement("INSERT INTO User_EndUsers(username) VALUES (?)");
+				 
+				 subPS.setString(1, user.getUsername());
+			 }
+			
+			if(user.getType().equalsIgnoreCase("Representative")) {
+				subPS = connection.prepareStatement("INSERT INTO User_CustReps(username) VALUES (?)");
+				 
+				 subPS.setString(1, user.getUsername());
+				
+			}
+			
+			 
+			 x = ps.executeUpdate();
+			 y = subPS.executeUpdate();
+			 if(x != 0 && y != 0) {
+				 return true;
+			 }
+		 } catch(SQLException e){
+			 e.printStackTrace();
+		 } 
+		
+		
+		dao.closeConnection(connection);
 		return result;
 		
 	}

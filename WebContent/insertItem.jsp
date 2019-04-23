@@ -14,7 +14,7 @@
 	
 	<% 
 		boolean result = ApplicationDB.createItem(obj);
-		
+
 		if(result){
 			out.println("Item successfully added");
 		} else{

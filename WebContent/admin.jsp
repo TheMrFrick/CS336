@@ -11,9 +11,14 @@
 	<!-- check to see if the current user is the admin -->
 	<!--  if they are, then they can continue onto the page -->
 	<!--  if not, then they will be redirected -->
-
+	
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
-
+	<% 
+	if(session.getAttribute("user").equals("admin") != 0){
+		out.println("User is not admin. Being redirectedto the home page");
+		response.sendRedirect("index.jsp");
+	}
+	%>
 
 	<div class="container">
 		<h2>Users</h2>
