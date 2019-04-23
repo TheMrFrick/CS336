@@ -11,6 +11,7 @@
 	<jsp:useBean id="obj" class="com.cs336.pkg.User" />
 
 	<jsp:setProperty property="*" name="obj" />
+	
 	<%
 		String dest= "";
 		if(obj.getUsername().equalsIgnoreCase("admin") && obj.getPassword().equalsIgnoreCase("adminpass")){
