@@ -10,6 +10,10 @@
 </head>
 <body>
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
+
+	<a href="createAuction.jsp"><button class="button button1"
+			value="createAuction">Make Auction</button></a>
+
 	<div class="container">
 		<!-- Fill this area in -->
 		<!-- Area should include a connection to the database that will grab items -->

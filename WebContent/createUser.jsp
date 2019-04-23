@@ -12,7 +12,7 @@
 	
 	<jsp:setProperty property="*" name="obj"/>
 	
-	<%
+	<% 
 		boolean result = ApplicationDB.createUser(obj);
 		request.getParameter("type");
 	

@@ -9,6 +9,12 @@
 </head>
 <body>
 
+	<!-- Check to see if the user is logged into an account -->
+	
+	
+	
+	<!--  end of check user to see if they are logged into an account -->
+
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	<div class="container">
 		<h2>Add Item</h2>

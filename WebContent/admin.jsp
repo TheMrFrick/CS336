@@ -16,7 +16,7 @@
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	<% 
 	if(!session.getAttribute("user").equals("admin")){
-		out.println("User is not admin. Being redirectedto the home page");
+		out.println("User is not admin. Being redirected to the home page");
 		response.sendRedirect("index.jsp");
 	}
 	%>
