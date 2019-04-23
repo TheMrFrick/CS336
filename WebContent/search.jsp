@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	<div class="container">
-		<form action="searchDB.jsp" method="GET" class="form-inline">
+		<form action="results.jsp" method="GET" class="form-inline">
 			<input type="text" name="search" placeholder="search..."><br>
 			<input type="submit" value="Submit">
 		</form>
