@@ -92,23 +92,24 @@ public class ApplicationDB {
 		return result;
 	}
 	
-	public static boolean getUser(String username) {
+	public static ResultSet getUser(String username) {
 		ApplicationDB dao = new ApplicationDB();
-		boolean result = false;
+		//boolean result = false;
 		
 		Connection connection = dao.getConnection();
-		
+		System.out.println(username);
 		ResultSet x = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * From Users WHERE username=(?)");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE username=?");
 			ps.setString(1, username);
 			x = ps.executeQuery();
+			System.out.println(x);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return result;
+		return x;
 	}
 
 	public static boolean createItem(Item item, String user) {
