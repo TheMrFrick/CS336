@@ -143,9 +143,9 @@ public class ApplicationDB {
 			subPS.setString(2, item.getStyle());
 
 			int y = mainPS.executeUpdate();
-			int x = subPS.executeUpdate();
+//			int x = subPS.executeUpdate();
 
-			if (x != 0 && y != 0) {
+			if ( y != 0) {
 				result = true;
 			}
 			dao.closeConnection(connection);
