@@ -27,7 +27,8 @@
 				Connection connection = dao.getConnection();
 
 				try {
-					PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE username ='" + username + "'");
+					PreparedStatement ps = connection
+							.prepareStatement("SELECT * FROM Users WHERE username ='" + username + "'");
 
 					ResultSet rs = ps.executeQuery();
 					while (rs.next()) {
@@ -40,14 +41,12 @@
 				<%=rs.getString("pass")%></h4>
 
 			<%
-				} 
+				}
 					rs.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				dao.closeConnection(connection);
 			%>
 		</div>
 		<br>
@@ -56,25 +55,56 @@
 		<div style="align: center; display: block; border-style: dotted">
 			<h2>Auctions</h2>
 			<table>
-				<th>Auction ID</th>
-				<th>Item ID</th>
-				<th>
-			
-			
-			
-			
-			
+				<tr>
+					<th>Auction ID</th>
+					<th>Item ID</th>
+					<th>Minimum Price</th>
+					<th>Initial Price</th>
+					<th>Bid Increment</th>
+					<th>Seller</th>
+					<th>End Time</th>
+					<th>View</th>
+				</tr>
+				<%
+					try {
+						PreparedStatement ps = connection
+								.prepareStatement("SELECT * FROM Auctions where seller='" + username + "'");
+						ResultSet rs = ps.executeQuery();
+
+						while (rs.next()) {
+				%>
+				<tr>
+					<td><%=rs.getString("auctionID")%></td>
+					<td><%=rs.getString("itemID")%></td>
+					<td><%=rs.getString("minPrice")%></td>
+					<td><%=rs.getString("initPrice")%></td>
+					<td><%=rs.getString("bidIncr")%></td>
+					<td><%=rs.getString("seller")%></td>
+					<td><%=rs.getString("endTime")%></td>
+					<td><a href="auction.jsp?auctionID=<%=rs.getString("auctionID") %>">View</a>
+				</tr>
+				<%
+					}
+
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				%>
 			</table>
 			<!--  go through the auctions of the user and list them -->
 		</div>
 		<br>
 		<hr>
 		<br>
-		<div style="align: center; display: block; border-style: double">
-			<h2>Bid History</h2>
+<!-- 		<div style="align: center; display: block; border-style: double"> -->
+<!-- 			<h2>Bid History</h2> -->
 
-			<!--  go through the bid history of the user and list them -->
-		</div>
+<!-- 			<!--  go through the bid history of the user and list them --> 
+<!-- 		</div> -->
+		<% dao.closeConnection(connection); %>
 	</div>
+
 </body>
 </html>
