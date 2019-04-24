@@ -10,7 +10,14 @@
 <body>
 
 	<!-- Check to see if the user is logged into an account -->
+	<% 
 	
+		String user = (String) session.getAttribute("user"); 
+		if(user == null){
+			response.sendRedirect("notLoggedIn.jsp");
+		}
+	
+	%>
 	
 	
 	<!--  end of check user to see if they are logged into an account -->

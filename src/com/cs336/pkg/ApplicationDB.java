@@ -111,6 +111,63 @@ public class ApplicationDB {
 		
 		return x;
 	}
+	
+	public static boolean createBid(double price) {
+		
+		ApplicationDB dao = new ApplicationDB();
+		boolean result = false;
+
+		Connection connection = dao.getConnection();
+
+		try {
+			PreparedStatement mainPS = connection.prepareStatement(
+					"INSERT INTO Bids(amount) values (?)");
+			
+			mainPS.setDouble(1,price);
+		
+
+			int y = mainPS.executeUpdate();
+
+			if ( y != 0) {
+				result = true;
+			}
+			dao.closeConnection(connection);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+	
+	public static boolean createBidHistory(String bidID, String auctionID) {
+		ApplicationDB dao = new ApplicationDB();
+		boolean result = false;
+
+		Connection connection = dao.getConnection();
+
+		try {
+			PreparedStatement mainPS = connection.prepareStatement(
+					"INSERT INTO BidHistories(auctionID, bidID, bidTime) VALUES (?, ?, ?)");
+			mainPS.setString(1,auctionID);
+			mainPS.setString(2,bidID);
+			
+			int y = mainPS.executeUpdate();
+//			int x = subPS.executeUpdate();
+
+			if ( y != 0) {
+				result = true;
+			}
+			dao.closeConnection(connection);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
 
 	public static boolean createItem(Item item, String user) {
 		ApplicationDB dao = new ApplicationDB();

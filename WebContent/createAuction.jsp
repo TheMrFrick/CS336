@@ -39,7 +39,6 @@
 				<%=rs.getInt("itemID")%>
 				<%=rs.getString("genderMake")%>
 				<%=rs.getString("color")%>
-				<%=rs.getString("brand")%>
 				<%=rs.getString("brand")%><br />
 				<%
 					}

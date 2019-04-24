@@ -21,7 +21,7 @@
 			<br>
 			<p><!-- countdown time --></p>
 			<br>
-			<a href="addBid.jsp"><button class="button button1">Add Bid</button></a>
+			<a href="addBid.jsp?auctionID=<%=request.getParameter("auctionID")%>"><button class="button button1">Add Bid</button></a>
 		</div>
 	</div>
 </body>
