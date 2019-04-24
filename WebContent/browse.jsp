@@ -52,7 +52,6 @@
 			</tr>
 		<%
 			}
-			out.print("</table>");
 
 			//close the connection.
 			db.closeConnection(con);
