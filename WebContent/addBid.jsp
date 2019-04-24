@@ -25,8 +25,9 @@
 	<br>
 	<hr>
 	<br>
-	<form action="insertBid.jsp?auctionID=<%=auction %>" method="GET" class="form-inline">
+	<form action="insertBid.jsp" method="GET" class="form-inline">
 		<fieldset>
+			<input type="text" readonly name="auctionID" value=<%=auction %>>
 			<legend>Bid: </legend>
 			<input type="number" name="bid"><br>
 		</fieldset>

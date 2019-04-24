@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ApplicationDB {
 
@@ -67,7 +70,7 @@ public class ApplicationDB {
 	 * Checks SQL database for username and password
 	 * 
 	 * @param user
-	 * @return
+	 * @return 
 	 */
 	public static boolean log(User user) {
 		ApplicationDB dao = new ApplicationDB();
@@ -152,6 +155,9 @@ public class ApplicationDB {
 					"INSERT INTO BidHistories(auctionID, bidID, bidTime) VALUES (?, ?, ?)");
 			mainPS.setString(1,auctionID);
 			mainPS.setString(2,bidID);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			mainPS.setString(3,dateFormat.format(cal));
 			
 			int y = mainPS.executeUpdate();
 //			int x = subPS.executeUpdate();
@@ -166,8 +172,8 @@ public class ApplicationDB {
 		}
 
 		return result;
-
-	}
+ 
+	}  
 
 	public static boolean createItem(Item item, String user) {
 		ApplicationDB dao = new ApplicationDB();
