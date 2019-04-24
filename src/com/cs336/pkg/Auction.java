@@ -1,10 +1,16 @@
 package com.cs336.pkg;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Auction {
 
 	private int itemID;
 	private double minPrice, initPrice, bidIncr;
 	private String seller;
+	private String date;
+	private String time;
+	
 	
 	public int getItemID() {
 		return this.itemID;	
@@ -26,6 +32,14 @@ public class Auction {
 		return this.seller;
 	}
 	
+	public String getDate() {
+		return this.date;
+	}
+	
+	public String getTime() {
+		return this.time;
+	}
+	
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
 	}
@@ -44,6 +58,14 @@ public class Auction {
 	
 	public void setSeller(String seller) {
 		this.seller = seller;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 }

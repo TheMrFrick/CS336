@@ -194,13 +194,15 @@ public class ApplicationDB {
 		int x = 0;
 		
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Auctions(itemID, minPrice, initPrice, bidIncr, seller) VALUES(?, ?, ?, ?, ?)");
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO Auctions(itemID, minPrice, initPrice, bidIncr, seller, endTime) VALUES(?, ?, ?, ?, ?, TIMESTAMP(?, ?))");
 			
 			ps.setInt(1, item);
 			ps.setDouble(2, auction.getMinPrice());
 			ps.setDouble(3, auction.getInitPrice());
 			ps.setDouble(4, auction.getBidIncr());
 			ps.setString(5, seller);
+			ps.setString(6, auction.getDate());
+			ps.setString(7, auction.getTime());
 			
 			x = ps.executeUpdate();
 			if(x != 0) {
