@@ -17,6 +17,10 @@
 			<h2>User Details</h2>
 			
 			<!-- go through the user details such as how many items, type of user -->
+			<% 
+			String username =  (String) request.getAttribute("user");
+			
+			%>
 		</div>
 		<br>
 		<hr>

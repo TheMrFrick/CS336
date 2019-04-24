@@ -11,37 +11,34 @@
 	<jsp:useBean id="obj" class="com.cs336.pkg.User" />
 
 	<jsp:setProperty property="*" name="obj" />
-	
+
 	<%
-		String dest= "";
-		if(obj.getUsername().equalsIgnoreCase("admin") && obj.getPassword().equalsIgnoreCase("adminpass")){
+		String dest = "";
+		if (obj.getUsername().equalsIgnoreCase("admin") && obj.getPassword().equalsIgnoreCase("adminpass")) {
 			session.setAttribute("user", "admin");
-			
-			dest = "admin.jsp";
-		} else if(obj.getUsername().equalsIgnoreCase("admin")){
-			out.println("Cannot use username admin, please try again");
-			dest = "login.jsp";
+
+			dest = "admin.jsp?delete=no&user=admin";
+			response.sendRedirect(dest);
+			return;
 		}
-		
+
 		boolean result = ApplicationDB.log(obj);
 
-		if (result && !obj.getUsername().equalsIgnoreCase("admin")) {
+		if (result) {
 			out.println("Success");
 			dest = "index.jsp";
 			session.setAttribute("user", obj.getUsername());
-			out.println("welcome " + obj.getUsername());
-			
-			
-			out.println("<a href='logout.jsp'>Log out</a>");
-			
-			//response.sendRedirect("index.jsp");
+			//out.println("welcome " + obj.getUsername());
 
+			//out.println("<a href='logout.jsp'>Log out</a>");
+
+			//response.sendRedirect("index.jsp");
+			response.sendRedirect(dest);
 		} else {
 			out.println("Failure");
 			out.println("Invalid password <a href='login.jsp'>try again</a>");
 
 		}
-		response.sendRedirect(dest);
 	%>
 </body>
 </html>
