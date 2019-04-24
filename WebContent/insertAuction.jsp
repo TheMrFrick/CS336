@@ -23,7 +23,8 @@
 		boolean result = ApplicationDB.createAuction(obj, item, seller);
 	
 		if(result){
-			out.println("Auction successfully created");
+
+			response.sendRedirect("browse.jsp");
 		} else{
 			out.println("Failure: Improper input");
 				

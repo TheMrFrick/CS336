@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="parts/navbar.jsp"></jsp:include>
 	
-	<div class = "container">
+	<div class = "contianer">
 		<!--  get the items passed to this URL from the DB and showcase them in a table -->
 		
 		<table>

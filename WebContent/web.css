@@ -122,8 +122,3 @@ li a {
     width: 1170px;
   }
 }
-
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}

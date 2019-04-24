@@ -5,30 +5,25 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class ApplicationDB {
-
-	public ApplicationDB() {
-
+	
+	public ApplicationDB(){
+		
 	}
 
 	/**
 	 * Creates connection to SQL database
-	 * 
 	 * @return connection to database
 	 */
-	public Connection getConnection() {
-
-		// Create a connection string
+	public Connection getConnection(){
+		
+		//Create a connection string
 		String connectionUrl = "jdbc:mysql://cs336-db.cyltgcwmeu5o.us-east-2.rds.amazonaws.com:3306/FinalProject";
 		Connection connection = null;
-
+		
 		try {
-			// Load JDBC driver - the interface standardizing the connection procedure. Look
-			// at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -38,18 +33,18 @@ public class ApplicationDB {
 			e.printStackTrace();
 		}
 		try {
-			// Create a connection to your DB
+			//Create a connection to your DB
 			connection = DriverManager.getConnection(connectionUrl, "admin", "adminpass");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return connection;
-
+		
 	}
-
-	public void closeConnection(Connection connection) {
+	
+	public void closeConnection(Connection connection){
 		try {
 			connection.close();
 		} catch (SQLException e) {
@@ -57,33 +52,34 @@ public class ApplicationDB {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	
 	public static void main(String[] args) {
 		ApplicationDB dao = new ApplicationDB();
 		Connection connection = dao.getConnection();
-
-		System.out.println(connection);
+		
+		
+		System.out.println(connection);		
 		dao.closeConnection(connection);
 	}
-
 	/**
 	 * Checks SQL database for username and password
-	 * 
 	 * @param user
-	 * @return 
+	 * @return
 	 */
 	public static boolean log(User user) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
-
+		
 		Connection connection = dao.getConnection();
 
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE username=? and pass=?");
-
+			
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
-
+			
 			ResultSet rs = ps.executeQuery();
 			result = rs.next();
 			dao.closeConnection(connection);
@@ -91,180 +87,104 @@ public class ApplicationDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	
 		return result;
 	}
 	
-	public static ResultSet getUser(String username) {
-		ApplicationDB dao = new ApplicationDB();
-		//boolean result = false;
-		
-		Connection connection = dao.getConnection();
-		System.out.println(username);
-		ResultSet x = null;
-		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE username=?");
-			ps.setString(1, username);
-			x = ps.executeQuery();
-			System.out.println(x);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return x;
-	}
-	
-	public static boolean createBid(double price) {
-		
-		ApplicationDB dao = new ApplicationDB();
-		boolean result = false;
-
-		Connection connection = dao.getConnection();
-
-		try {
-			PreparedStatement mainPS = connection.prepareStatement(
-					"INSERT INTO Bids(amount) values (?)");
-			
-			mainPS.setDouble(1,price);
-		
-
-			int y = mainPS.executeUpdate();
-
-			if ( y != 0) {
-				result = true;
-			}
-			dao.closeConnection(connection);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return result;
-
-	}
-	
-	public static boolean createBidHistory(String bidID, String auctionID) {
-		ApplicationDB dao = new ApplicationDB();
-		boolean result = false;
-
-		Connection connection = dao.getConnection();
-
-		try {
-			PreparedStatement mainPS = connection.prepareStatement(
-					"INSERT INTO BidHistories(auctionID, bidID, bidTime) VALUES (?, ?, ?)");
-			mainPS.setString(1,auctionID);
-			mainPS.setString(2,bidID);
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Calendar cal = Calendar.getInstance();
-			mainPS.setString(3,dateFormat.format(cal));
-			
-			int y = mainPS.executeUpdate();
-//			int x = subPS.executeUpdate();
-
-			if ( y != 0) {
-				result = true;
-			}
-			dao.closeConnection(connection);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return result;
- 
-	}  
-
 	public static boolean createItem(Item item, String user) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
-
+		
 		Connection connection = dao.getConnection();
-
+		
 		try {
-			PreparedStatement mainPS = connection.prepareStatement(
-					"INSERT INTO Items(genderMake, color, brand, material, owner) VALUES (?, ?, ?, ?, ?)");
-
+			PreparedStatement mainPS = connection.prepareStatement("INSERT INTO Items(genderMake, color, brand, material, owner) VALUES (?, ?, ?, ?, ?)");
+			
 			mainPS.setString(1, item.getGender());
 			mainPS.setString(2, item.getColor());
 			mainPS.setString(3, item.getBrand());
 			mainPS.setString(4, item.getMaterial());
 			mainPS.setString(5, user);
-
-			PreparedStatement subPS = null;
-
-			if (item.getType().equalsIgnoreCase("top")) {
+			
+			
+			PreparedStatement subPS = null; 
+			
+			if(item.getType().equalsIgnoreCase("top")){
 				subPS = connection.prepareStatement("INSERT INTO Item_Tops(topSize,topStyle) VALUES (?,?)");
 			}
-			if (item.getType().equalsIgnoreCase("bottom")) {
+			if(item.getType().equalsIgnoreCase("bottom")){
 				subPS = connection.prepareStatement("INSERT INTO Item_Bottoms(bottomSize, bottomStyle) VALUES (?,?)");
 			}
-			if (item.getType().equalsIgnoreCase("shoe")) {
+			if(item.getType().equalsIgnoreCase("shoe")){
 				subPS = connection.prepareStatement("INSERT INTO Item_Shoes(shoeSize, shoeStyle) VALUES (?,?)");
 			}
-
+			
 			subPS.setString(1, item.getSize());
 			subPS.setString(2, item.getStyle());
-
-			int y = mainPS.executeUpdate();
-//			int x = subPS.executeUpdate();
-
-			if ( y != 0) {
+			
+			
+			int y = subPS.executeUpdate();
+//			int x = mainPS.executeUpdate();
+			
+			if(y != 0) {
 				result = true;
 			}
 			dao.closeConnection(connection);
-
-		} catch (SQLException e) {
+			
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		return result;
-
+		
 	}
-
+	
 	public static boolean createUser(User user) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
-
+		
 		Connection connection = dao.getConnection();
-
+		
+		
 		try {
-			// insert for the generic user instance
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Users(username,pass) VALUES (?,?)");
+			 //insert for the generic user instance
+			 PreparedStatement ps = connection.prepareStatement("INSERT INTO Users(username,pass) VALUES (?,?)");
+			 
+			 ps.setString(1, user.getUsername());
+			 ps.setString(2, user.getPassword());
 
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getPassword());
-
-			int x = 0, y = 0;
-			PreparedStatement subPS = null;
-
-			if (user.getType().equalsIgnoreCase("Basic")) {
-				subPS = connection.prepareStatement("INSERT INTO User_EndUsers(username) VALUES (?)");
-
-				subPS.setString(1, user.getUsername());
-			}
-
-			if (user.getType().equalsIgnoreCase("Representative")) {
+			 int x = 0, y = 0;
+			 PreparedStatement subPS = null;
+			 
+			if(user.getType().equalsIgnoreCase("Basic")) {
+				 subPS = connection.prepareStatement("INSERT INTO User_EndUsers(username) VALUES (?)");
+				 
+				 subPS.setString(1, user.getUsername());
+			 }
+			
+			if(user.getType().equalsIgnoreCase("Representative")) {
 				subPS = connection.prepareStatement("INSERT INTO User_CustReps(username) VALUES (?)");
-
-				subPS.setString(1, user.getUsername());
-
+				 
+				 subPS.setString(1, user.getUsername());
+				
 			}
-
-			x = ps.executeUpdate();
-			y = subPS.executeUpdate();
-			if (x != 0 && y != 0) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+			
+			 
+			 x = ps.executeUpdate();
+			 y = subPS.executeUpdate();
+			 if(x != 0 && y != 0) {
+				 return true;
+			 }
+		 } catch(SQLException e){
+			 e.printStackTrace();
+		 } 
+		
+		
 		dao.closeConnection(connection);
 		return result;
-
+		
 	}
-
+	
 	public static boolean deleteUser(String username) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
@@ -288,37 +208,42 @@ public class ApplicationDB {
 
 		return result;
 	}
-
-	public static boolean createAuction(Auction auction, int item, String seller) {
+	
+	 public static boolean createAuction(Auction auction, int item, String seller) {
 		ApplicationDB dao = new ApplicationDB();
 		boolean result = false;
-
+		
 		Connection connection = dao.getConnection();
-
+		
 		int x = 0;
-
+		
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"INSERT INTO Auctions(itemID, minPrice, initPrice, bidIncr, seller) VALUES(?, ?, ?, ?, ?)");
-
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO Auctions(itemID, minPrice, initPrice, bidIncr, seller, endTime) VALUES(?, ?, ?, ?, ?, TIMESTAMP(?, ?))");
+			
 			ps.setInt(1, item);
 			ps.setDouble(2, auction.getMinPrice());
 			ps.setDouble(3, auction.getInitPrice());
 			ps.setDouble(4, auction.getBidIncr());
 			ps.setString(5, seller);
-
+			ps.setString(6, auction.getDate());
+			ps.setString(7, auction.getTime());
+			
 			x = ps.executeUpdate();
-			if (x != 0) {
+			if(x != 0) {
 				result = true;
 			}
-
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
+		
 		return result;
-
+		
+		
 	}
+	
 
 }
